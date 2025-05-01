@@ -41,6 +41,15 @@ async def register_user(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Bu foydalanuvchi nomi allaqachon mavjud"  # noqa
         )
+    
+    # Check if email already exists
+    existing_email = db.query(User).filter(User.email == create_user_request.email).first()
+    if existing_email:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Bu email allaqachon ro'yxatdan o'tgan"  # This email is already registered
+        )
+        
     new_user = User(
         full_name=create_user_request.full_name,
         email=create_user_request.email,

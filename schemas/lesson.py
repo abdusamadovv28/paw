@@ -1,19 +1,26 @@
 from pydantic import BaseModel
 from typing import Optional
 
-class LessonBase(BaseModel):
-    title: Optional[str] = None
-    description: Optional[str] = None
-    video_url: Optional[str] = None
-    course_id: Optional[int] = None
 
-class LessonCreate(LessonBase):
-    title: str
+class LessonCreate(BaseModel):
     course_id: int
+    title: str
+    video_url: str
+    content: str
 
-class Lesson(LessonBase):
+
+class LessonOut(BaseModel):
     id: int
-    owner_id: int
+    course_id: int
+    title: str
+    video_url: str
+    content: str
 
     class Config:
         orm_mode = True
+
+
+class LessonUpdate(BaseModel):
+    title: Optional[str] = None
+    video_url: Optional[str] = None
+    content: Optional[str] = None

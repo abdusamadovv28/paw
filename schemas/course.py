@@ -5,7 +5,6 @@ from typing import Optional
 class CourseCreate(BaseModel):
     title: str
     description: str
-    author_id: int  # FK to User
 
 
 class CourseOut(BaseModel):
